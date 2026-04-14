@@ -1,4 +1,4 @@
-/* 1. GLOBAL SETTINGS - The "Kitchen Foundation" */
+/* 1. GLOBAL SETTINGS */
 body { 
     background-color: #1a1a1a; 
     color: #e0e0e0; 
@@ -8,21 +8,9 @@ body {
 }
 
 /* 2. NAVIGATION & LANGUAGE SWITCHER */
-.lang-switch {
-    background-color: #111;
-    text-align: right;
-    padding: 10px 30px;
-}
-.lang-switch a {
-    color: #bc9c22;
-    text-decoration: none;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
 nav {
     background-color: #1a1a1a;
-    padding: 10px 0;
+    padding: 15px 0;
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -34,6 +22,7 @@ nav ul {
     padding: 0;
     display: flex;
     justify-content: center;
+    align-items: center; /* Keeps everything level */
     gap: 15px;
 }
 nav ul li a {
@@ -43,15 +32,32 @@ nav ul li a {
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 1.5px;
-    padding: 12px 20px;
+    padding: 12px 15px;
     transition: 0.3s ease;
 }
 nav ul li a:hover {
     color: #bc9c22;
-    background-color: rgba(188, 156, 34, 0.1);
 }
 
-/* 3. HERO SECTION (The Sliding Panels) */
+/* THE BUTTON STYLE SWITCHER */
+.lang-switch {
+    margin-left: 20px;
+    border: 1px solid #bc9c22;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+.lang-switch a {
+    color: #bc9c22 !important;
+    padding: 8px 15px !important;
+}
+.lang-switch:hover {
+    background-color: #bc9c22;
+}
+.lang-switch:hover a {
+    color: #1a1a1a !important;
+}
+
+/* 3. HERO SECTION */
 .hero {
     height: 85vh;
     position: relative;
@@ -73,11 +79,6 @@ nav ul li a:hover {
     background-position: center;
     filter: brightness(0.4) saturate(1.2); 
     transition: flex 0.8s ease, filter 0.5s ease;
-    border-right: 1px solid rgba(188, 156, 34, 0.2);
-}
-.panel:hover {
-    flex: 1.4;
-    filter: brightness(0.7) saturate(1.4);
 }
 .hero-content {
     position: relative;
@@ -90,71 +91,58 @@ nav ul li a:hover {
     color: #bc9c22;
     text-shadow: 2px 2px 20px rgba(0,0,0,1);
     margin: 0;
+    letter-spacing: 5px;
 }
 
 /* 4. CONTENT SECTIONS */
 .container { 
-    max-width: 1100px; 
+    max-width: 1200px; 
     margin: auto; 
-    padding: 60px 20px; 
+    padding: 80px 20px; 
     text-align: center; 
 }
 h2 { 
     color: #bc9c22; 
     text-transform: uppercase; 
-    letter-spacing: 2px; 
-    margin-bottom: 40px; 
+    letter-spacing: 3px; 
+    margin-bottom: 50px; 
 }
-h3 { color: #bc9c22; }
 
-/* 5. MEDIA GRID (Magazines in one row) */
+/* 5. PRESS GRID (The 3x2 Alignment) */
 .media-grid {
     display: grid;
-    /* This forces 5 items in a row on desktop */
-    grid-template-columns: repeat(5, 1fr); 
-    gap: 15px;
-    margin-top: 30px;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 50px 30px;
+    max-width: 1000px;
+    margin: auto;
 }
 
-.press-item img {
+/* 6. SIGNATURE CREATIONS GALLERY (The Artistic Masonry) */
+.creations-grid {
+    column-count: 4;
+    column-gap: 15px;
+}
+.creation-item {
+    display: inline-block;
     width: 100%;
-    height: 300px; /* Consistent height for the magazine row */
-    object-fit: cover;
-    border-radius: 4px;
-    border: 1px solid #333;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     cursor: pointer;
-}
-
-.press-item img:hover {
-    transform: scale(1.05);
-    border-color: #bc9c22;
-}
-
-/* 6. SIGNATURE CREATIONS GALLERY */
-.gallery { 
-    display: grid; 
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-    gap: 20px; 
-}
-.gallery img { 
-    width: 100%; 
-    border-radius: 8px; 
-    border: 1px solid #333; 
     transition: 0.3s;
 }
-.gallery img:hover {
-    border-color: #bc9c22;
-}
+.creation-item:hover { transform: scale(1.03); }
+.creation-item img { width: 100%; height: auto; display: block; }
 
 /* 7. RESPONSIVE ADJUSTMENTS */
-@media (max-width: 900px) {
-    .media-grid { grid-template-columns: repeat(3, 1fr); }
-    .hero h1 { font-size: 3rem; }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 1000px) {
     .media-grid { grid-template-columns: repeat(2, 1fr); }
-    nav ul { gap: 5px; }
-    nav ul li a { padding: 8px 10px; font-size: 0.7rem; }
+    .creations-grid { column-count: 3; }
+}
+@media (max-width: 700px) {
+    .creations-grid { column-count: 2; }
+    .hero h1 { font-size: 2.5rem; }
+    nav ul { gap: 5px; flex-wrap: wrap; }
+    .lang-switch { margin-left: 5px; margin-top: 10px; }
 }

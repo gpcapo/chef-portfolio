@@ -5,17 +5,109 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chef Antonio Caporrimo | Mediterranean Executive Chef</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="icon" href="favicon1.ico" type="image/x-icon">
     <style>
-        /* Smooth scrolling for menu links */
         html { scroll-behavior: smooth; }
+        
+        /* HERO SECTION STYLING */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            background: #000;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            display: flex;
+        }
+        .panel {
+            flex: 1;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.4);
+            transition: 0.5s;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            color: #bc9c22;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        /* PRESS GRID (Strict 3x2 Symmetry) */
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 50px 30px;
+            padding: 40px 20px;
+            max-width: 1000px;
+            margin: auto;
+        }
+        .media-item { text-align: center; display: flex; flex-direction: column; align-items: center; }
+        .img-container {
+            width: 100%; height: 320px; 
+            display: flex; align-items: flex-end; justify-content: center;
+            margin-bottom: 20px;
+        }
+        .media-item img {
+            max-width: 90%; max-height: 100%;
+            border-radius: 4px; box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            cursor: pointer; transition: transform 0.3s;
+        }
+        .media-item img:hover { transform: scale(1.05); }
+        .media-item p { color: #d4af37; font-size: 1rem; font-weight: bold; margin: 0; height: 50px; display: flex; align-items: center; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* FOOD GALLERY (Professional Masonry) */
+        .creations-grid {
+            column-count: 4; column-gap: 20px; padding: 20px;
+            max-width: 1200px; margin: auto;
+        }
+        .creation-item {
+            display: inline-block; width: 100%; margin-bottom: 20px;
+            position: relative; overflow: hidden; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3); cursor: pointer; transition: transform 0.3s ease;
+        }
+        .creation-item:hover { transform: scale(1.03); z-index: 2; }
+        .creation-item img { width: 100%; height: auto; display: block; border-radius: 8px; }
+        .creation-overlay {
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: #d4af37; padding: 15px; opacity: 0; transition: opacity 0.3s; font-weight: bold;
+        }
+        .creation-item:hover .creation-overlay { opacity: 1; }
+
+        /* LIGHTBOX & ZOOM DRAG */
+        .mag-lightbox {
+            display: none; position: fixed; z-index: 10000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); justify-content: center; align-items: center;
+            overflow: hidden; touch-action: none;
+        }
+        .lightbox-content-wrapper { position: relative; width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; overflow: hidden; }
+        .lightbox-img { max-width: 85%; max-height: 85%; border: 2px solid #bc9c22; transition: transform 0.1s ease-out; user-select: none; transform-origin: center; cursor: zoom-in; }
+        .nav-btn { background: rgba(188, 156, 34, 0.9); color: white; border: none; padding: 15px 20px; font-size: 24px; cursor: pointer; border-radius: 50%; position: absolute; top: 50%; transform: translateY(-50%); z-index: 10005; }
+        .prev-btn { left: 20px; } .next-btn { right: 20px; }
+        .close-btn { position: absolute; top: 20px; right: 20px; color: white; font-size: 50px; cursor: pointer; z-index: 10006; }
+        #pageCounter { position: absolute; bottom: 20px; color: white; font-weight: bold; pointer-events: none; }
+
+        @media (max-width: 1000px) { .creations-grid { column-count: 3; } .media-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 700px) { .creations-grid { column-count: 2; } .media-grid { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
 
-    <div class="lang-switch">
-        <a href="it.html">🇮🇹 Italiano</a>
+    <div class="lang-switch" style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
+        <a href="it.html" style="color: #bc9c22; text-decoration: none; font-weight: bold;">🇮🇹 Italiano</a>
     </div>
 
     <nav>
@@ -26,26 +118,25 @@
             <li><a href="#media">Press</a></li> 
             <li><a href="#gallery">Creations</a></li>
             <li><a href="#contact">Contact</a></li>
+            <li class="lang-switch"><a href="it.html">🇮🇹 Italiano</a></li>
         </ul>
     </nav>
 
     <section id="home" class="hero">
         <div class="hero-bg">
-            <div class="panel" style="background-image: url('images/hero-1.jpg');"></div>
+            <div class="panel" style="background-image: url('images/hero-0.jpg');"></div>
             <div class="panel" style="background-image: url('images/hero-2.jpg');"></div>
             <div class="panel" style="background-image: url('images/hero-3.jpg');"></div>
         </div>
-
         <div class="hero-content">
             <h1>Antonio Caporrimo</h1>
-            <p style="font-size: 1.4rem; letter-spacing: 3px; color: #f4f4f4; margin-top: 10px;">EXECUTIVE CHEF</p>
-            <p style="color: #888; margin-top: 5px;">30+ Years of Mediterranean Excellence</p>
+            <p style="font-size: 1.4rem; letter-spacing: 3px; color: #f4f4f4; margin-top:10px;">EXECUTIVE CHEF</p>
         </div>
     </section>
 
-    <section id="about" class="container">
+    <section id="about" class="container" style="padding: 80px 20px; text-align: center;">
         <h2>About My Journey</h2>
-        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center; text-align: left;">
+        <div style="display: flex; flex-wrap: wrap; gap: 30px; align-items: center; text-align: left; max-width: 1000px; margin: auto;">
             <div style="flex: 1; min-width: 300px;">
                 <p>With over three decades of experience in high-quality Mediterranean restaurants, I bring the authentic flavors of tradition to every dish. My career has been defined by a passion for fresh ingredients and the precision of fine dining.</p>
                 <p>Based in the United Kingdom, I specialize in running profitable kitchens, managing high-volume service, and leading professional kitchen brigades with Italian heritage and modern efficiency.</p>
@@ -56,87 +147,183 @@
         </div>
     </section>
 
-    <section id="cv" class="container" style="background-color: #1a1a1a;">
+    <section id="cv" class="container" style="padding: 80px 20px; text-align: center; background-color: #1a1a1a;">
         <h2>Professional Experience</h2>
         <div style="text-align: left; max-width: 900px; margin: auto;">
-
             <div style="border-left: 2px solid #bc9c22; padding-left: 25px; margin-bottom: 40px;">
                 <h3 style="color: #bc9c22; margin: 0; text-transform: uppercase;">Logistics & Supply Chain Manager</h3>
                 <p style="margin: 5px 0; font-weight: bold; color: #ccc;">Italia Solutions LTD, Crawley | 2023 – Present</p>
                 <p>Mastering high-volume inventory and supply chain management for 400+ weekly commercial orders.</p>
             </div>
-
             <div style="border-left: 2px solid #bc9c22; padding-left: 25px; margin-bottom: 40px;">
                 <h3 style="color: #bc9c22; margin: 0; text-transform: uppercase;">Restaurant Owner & Executive Chef</h3>
                 <p style="margin: 5px 0; font-weight: bold; color: #ccc;">Nibbles and Bites, East Grinstead | 2016 – 2022</p>
                 <p>Owned and operated an independent restaurant. Managed P&L, supplier negotiations, and menu design.</p>
             </div>
-
             <div style="border-left: 2px solid #bc9c22; padding-left: 25px; margin-bottom: 40px;">
                 <h3 style="color: #bc9c22; margin: 0; text-transform: uppercase;">Head Chef</h3>
                 <p style="margin: 5px 0; font-weight: bold; color: #ccc;">Piero Caramella, West Sussex | 2014 – 2016</p>
                 <p>Directed daily food preparation and high-speed service for a busy local restaurant.</p>
             </div>
-
             <div style="border-left: 2px solid #bc9c22; padding-left: 25px; margin-bottom: 40px;">
-                <h3 style="color: #bc9c22; margin: 0; text-transform: uppercase;">Head Chef | Farm-to-Table</h3>
-                <p style="margin: 5px 0; font-weight: bold; color: #ccc;">Agriturismo Terre della Sibilla, Marche, Italy | 2004 – 2008</p>
-                <p>Led a renowned kitchen focused on organic, locally sourced ingredients. Featured in several regional culinary magazines.</p>
+                <h3 style="color: #bc9c22; margin: 0; text-transform: uppercase;">Executive Chef</h3>
+                <p style="margin: 5px 0; font-weight: bold; color: #ccc;">Agriturismo Terre della Sibilla, Italy | 2004 – 2008</p>
+                <p>Curated farm-to-table experiences and organic menus. Featured in several regional press publications.</p>
             </div>
-
             <div style="text-align: center; margin-top: 50px;">
                 <a href="CV.pdf" target="_blank" style="display: inline-block; color: #1a1a1a; background: #bc9c22; text-decoration: none; font-weight: bold; padding: 12px 30px; border-radius: 50px;">VIEW FULL PDF CURRICULUM</a>
             </div>
         </div>
     </section>
 
-    <section id="media" class="container" style="background-color: #111;">
-        <h2>Media & Press Highlights</h2>
+    <section id="media" class="container" style="padding: 80px 20px; text-align: center;">
+        <h2>Press & Media Highlights</h2>
         <div class="media-grid">
-            <div class="press-item">
-                <img src="images/stampa/terraevitaedition1-2/edition1/cover.jpg" alt="Terra e Vita Ed 1">
-                <p style="color: #bc9c22; margin-top: 10px; font-size: 0.8rem;">Terra e Vita Ed. 1</p>
+            <div class="media-item" onclick="openGallery('images/stampa/terraevitaedition1-2/edition1/', 2)">
+                <div class="img-container"><img src="images/stampa/terraevitaedition1-2/edition1/cover-1.jpg"></div>
+                <p>Terra e Vita Ed. 1</p>
             </div>
-            <div class="press-item">
-                <img src="images/stampa/terraevitaedition1-2/edition2/cover.jpg" alt="Terra e Vita Ed 2">
-                <p style="color: #bc9c22; margin-top: 10px; font-size: 0.8rem;">Terra e Vita Ed. 2</p>
+            <div class="media-item" onclick="openGallery('images/stampa/terraevitaedition1-2/edition2/', 2)">
+                <div class="img-container"><img src="images/stampa/terraevitaedition1-2/edition2/cover-1.jpg"></div>
+                <p>Terra e Vita Ed. 2</p>
             </div>
-            <div class="press-item">
-                <img src="images/stampa/panoramatravel/cover.jpg" alt="Panorama Travel">
-                <p style="color: #bc9c22; margin-top: 10px; font-size: 0.8rem;">Panorama Travel</p>
+            <div class="media-item" onclick="openGallery('images/stampa/panoramatravel/', 1)">
+                <div class="img-container"><img src="images/stampa/panoramatravel/cover-1.jpg"></div>
+                <p>Panorama Travel</p>
             </div>
-            <div class="press-item">
-                <img src="images/stampa/mondagricolo/cover.jpg" alt="Mondagricolo">
-                <p style="color: #bc9c22; margin-top: 10px; font-size: 0.8rem;">Mondagricolo</p>
+            <div class="media-item" onclick="openGallery('images/stampa/mondagricolo/', 3)">
+                <div class="img-container"><img src="images/stampa/mondagricolo/cover-1.jpg"></div>
+                <p>Mondagricolo</p>
             </div>
-            <div class="press-item">
-                <img src="images/stampa/funghietartufi/cover.jpg" alt="Funghi e Tartufi">
-                <p style="color: #bc9c22; margin-top: 10px; font-size: 0.8rem;">Funghi e Tartufi</p>
+            <div class="media-item" onclick="openGallery('images/stampa/funghietartufi/', 3)">
+                <div class="img-container"><img src="images/stampa/funghietartufi/cover-1.jpg"></div>
+                <p>Funghi e Tartufi</p>
+            </div>
+            <div class="media-item" onclick="openGallery('images/stampa/agriturismonaturaesapori/', 6)">
+                <div class="img-container"><img src="images/stampa/agriturismonaturaesapori/cover-1.jpg"></div>
+                <p>Natura e Sapori</p>
             </div>
         </div>
     </section>
 
     <section id="gallery" class="container">
-        <h2>Signature Creations</h2>
-        <div class="gallery">
-            <img src="images/hero-1.jpg" alt="Mediterranean Dish">
-            <img src="images/hero-2.jpg" alt="Culinary Specialty">
-            <img src="images/hero-3.jpg" alt="Chef Creation">
+        <h2 style="text-align:center; color:#bc9c22; margin-top:60px;">Signature Creations</h2>
+        <div class="creations-grid">
+            <div class="creation-item" onclick="openSinglePhoto('images/agriturismo.jpg')">
+                <img src="images/agriturismo.jpg"><div class="creation-overlay">Agriturismo Setting</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/amatriciana.jpg')">
+                <img src="images/amatriciana.jpg"><div class="creation-overlay">Amatriciana</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/buffetaperto.jpg')">
+                <img src="images/buffetaperto.jpg"><div class="creation-overlay">Al Fresco Dining</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/buffetmontagna.jpg')">
+                <img src="images/buffetmontagna.jpg"><div class="creation-overlay">Mountain Buffet</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/calzoni.jpg')">
+                <img src="images/calzoni.jpg"><div class="creation-overlay">Handmade Calzoni</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/carbonara.jpg')">
+                <img src="images/carbonara.jpg"><div class="creation-overlay">Carbonara</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/crostata.jpg')">
+                <img src="images/crostata.jpg"><div class="creation-overlay">Crostata ai Frutti di Bosco</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/decoration.jpg')">
+                <img src="images/decoration.jpg"><div class="creation-overlay">Table Design</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/lasagna.jpg')">
+                <img src="images/lasagna.jpg"><div class="creation-overlay">Classic Lasagna</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/meatwork.jpg')">
+                <img src="images/meatwork.jpg"><div class="creation-overlay">Technique & Preparation</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/pasta_detail.jpg')">
+                <img src="images/pasta_detail.jpg"><div class="creation-overlay">Pasta Detail</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/plates.jpg')">
+                <img src="images/plates.jpg"><div class="creation-overlay">Plating Service</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/ristorante.jpg')">
+                <img src="images/ristorante.jpg"><div class="creation-overlay">The Restaurant</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/strudel.jpg')">
+                <img src="images/strudel.jpg"><div class="creation-overlay">Savory Strudel</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/tiramisu.jpg')">
+                <img src="images/tiramisu.jpg"><div class="creation-overlay">Tiramisu</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/torta.jpg')">
+                <img src="images/torta.jpg"><div class="creation-overlay">Signature Cake</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/tortaarabba.jpg')">
+                <img src="images/tortaarabba.jpg"><div class="creation-overlay">Specialty Torte</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/tortafrutti.jpg')">
+                <img src="images/tortafrutti.jpg"><div class="creation-overlay">Fruit Pastry</div>
+            </div>
+            <div class="creation-item" onclick="openSinglePhoto('images/hero-0.jpg')">
+                <img src="images/hero-0.jpg"><div class="creation-overlay">Mediterranean Flavors</div>
+            </div>
         </div>
     </section>
 
-    <section id="contact" class="container" style="background-color: #111;">
+    <section id="contact" class="container" style="padding: 80px 20px; text-align: center; background-color: #111;">
         <h2>Contact Me</h2>
-        <div style="margin-top: 30px; font-size: 1.2rem;">
-            <p>📍 Balcombe, West Sussex</p>
-            <p>📞 <a href="tel:07542510859" style="color: #bc9c22; text-decoration: none;">07542510859</a></p>
-            <p>✉️ <a href="mailto:antonio.caporrimo@gmail.com" style="color: #bc9c22; text-decoration: none;">antonio.caporrimo@gmail.com</a></p>
-        </div>
+        <p>📍 Balcombe, West Sussex</p>
+        <p>✉️ <a href="mailto:antonio.caporrimo@gmail.com" style="color: #bc9c22; text-decoration: none;">antonio.caporrimo@gmail.com</a></p>
     </section>
 
-    <footer style="text-align: center; padding: 50px; color: #555; border-top: 1px solid #333;">
-        <p>&copy; 2026 Antonio Caporrimo | Executive Chef</p>
-    </footer>
+    <div id="magLightbox" class="mag-lightbox">
+        <span class="close-btn" onclick="closeGallery()">&times;</span>
+        <button class="nav-btn prev-btn" onclick="changePage(-1); event.stopPropagation();">&#10094;</button>
+        <div class="lightbox-content-wrapper" id="dragWrapper">
+            <img id="displayImg" class="lightbox-img" onmousedown="startDrag(event)">
+        </div>
+        <button class="nav-btn next-btn" onclick="changePage(1); event.stopPropagation();">&#10095;</button>
+        <p id="pageCounter"></p>
+    </div>
 
+    <script>
+        let currentPath = "", currentPage = 1, totalPages = 1;
+        let scale = 1, posX = 0, posY = 0, isDragging = false, startX, startY;
+        const img = document.getElementById('displayImg');
+        const wrapper = document.getElementById('dragWrapper');
+
+        function openGallery(path, total) {
+            currentPath = path; totalPages = total; currentPage = 1;
+            resetZoom(); updateView();
+            document.getElementById('magLightbox').style.display = 'flex';
+        }
+
+        function openSinglePhoto(src) {
+            currentPath = ""; totalPages = 1; currentPage = 1;
+            img.src = src; resetZoom();
+            document.getElementById('pageCounter').innerText = "";
+            document.querySelector('.prev-btn').style.display = 'none';
+            document.querySelector('.next-btn').style.display = 'none';
+            document.getElementById('magLightbox').style.display = 'flex';
+        }
+
+        function updateView() {
+            img.src = currentPath + 'page-' + currentPage + '.jpg';
+            document.getElementById('pageCounter').innerText = "Page " + currentPage + " of " + totalPages;
+            document.querySelector('.prev-btn').style.display = totalPages > 1 ? 'block' : 'none';
+            document.querySelector('.next-btn').style.display = totalPages > 1 ? 'block' : 'none';
+        }
+
+        wrapper.onwheel = (e) => { e.preventDefault(); const delta = e.deltaY > 0 ? -0.2 : 0.2; scale = Math.min(Math.max(1, scale + delta), 4); applyTransform(); };
+
+        function startDrag(e) { if (scale <= 1) return; isDragging = true; startX = e.clientX - posX; startY = e.clientY - posY; img.style.cursor = "grabbing"; e.preventDefault(); }
+        window.onmousemove = (e) => { if (!isDragging) return; posX = e.clientX - startX; posY = e.clientY - startY; applyTransform(); };
+        window.onmouseup = () => { isDragging = false; if (scale > 1) img.style.cursor = "grab"; };
+
+        function resetZoom() { scale = 1; posX = 0; posY = 0; applyTransform(); }
+        function applyTransform() { img.style.transform = `translate(${posX}px, ${posY}px) scale(${scale})`; img.style.cursor = scale > 1 ? "grab" : "zoom-in"; }
+
+        function changePage(step) { resetZoom(); currentPage += step; if (currentPage > totalPages) currentPage = 1; if (currentPage < 1) currentPage = totalPages; updateView(); }
+        function closeGallery() { document.getElementById('magLightbox').style.display = 'none'; resetZoom(); }
+    </script>
 </body>
 </html>
